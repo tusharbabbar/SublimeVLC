@@ -1,0 +1,41 @@
+[
+    { 
+        "keys": ["ctrl+alt+s"], "command": "show_playlists"
+    },
+    { 
+        "keys": ["ctrl+alt+shift+s"], "command": "save_playlist"
+    },
+    { 
+        "keys": ["ctrl+alt+z"], "command": "select_song"
+    },
+    { 
+        "keys": ["ctrl+alt+shift+c"], "command": "show_current_playlist"
+    },
+    { 
+        "keys": ["ctrl+alt+a"], "command": "add_song_to_playlist"
+    },
+    { 
+        "keys": ["ctrl+alt+p"], "command": "play"
+    },
+    { 
+        "keys": ["ctrl+alt+q"], "command": "pause"
+    },
+    { 
+        "keys": ["ctrl+alt+t"], "command": "stop"
+    },
+    { 
+        "keys": ["ctrl+alt+n"], "command": "next"
+    },
+    { 
+        "keys": ["ctrl+alt+l"], "command": "loop"
+    },
+    { 
+        "keys": ["ctrl+alt+shift+."], "command": "fastforward"
+    },
+    { 
+        "keys": ["ctrl+alt+shift+/"], "command": "show_status"
+    },
+    { 
+        "keys": ["ctrl+alt+c"], "command": "clear_playlist"
+    }
+]
