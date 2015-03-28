@@ -46,6 +46,7 @@ def clear_playlist():
     playlist = set()
     print playlist
     vlc.clear()
+    sublime.status_message(vlc.status())
 
 def read_playlist_file(item_number):
     if item_number == -1:
@@ -60,14 +61,21 @@ def read_playlist_file(item_number):
         playlist = f.readlines()
         for song in playlist:
             add_song_to_vlc(song.strip())
+    sublime.status_message(vlc.status())
 
 def add_song_to_vlc_new(index):
+    if index == -1:
+        return
     playlist.add(cached_music_files[index])
     vlc.add(cached_music_files[index])
+    sublime.status_message(vlc.status())
 
 def enqueue_song_to_vlc_new(index):
+    if index == -1:
+        return
     playlist.add(cached_music_files[index])
     vlc.enqueue(cached_music_files[index])
+    sublime.status_message(vlc.status())
 
 def goto_item(number):
     if number == -1:
