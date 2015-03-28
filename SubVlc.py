@@ -161,3 +161,7 @@ class PlaylistNameCommand(sublime_plugin.WindowCommand):
 class ClearPlaylistCommand(sublime_plugin.WindowCommand):
     def run(self):
         clear_playlist()
+
+class ConnectVlcCommand(sublime_plugin.WindowCommand):
+    def run(self):
+        connect()
