@@ -125,6 +125,11 @@ class PauseCommand(sublime_plugin.WindowCommand):
         print vlc.pause()
         set_status("VLC paused")
 
+class PrevCommand(sublime_plugin.WindowCommand):
+    def run(self):
+        print vlc.prev()
+        set_status(vlc.status())
+
 class StopCommand(sublime_plugin.WindowCommand):
     def run(self):
         print vlc.stop()

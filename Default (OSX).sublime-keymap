@@ -40,5 +40,8 @@
     },
     { 
         "keys": ["ctrl+alt+c"], "command": "clear_playlist"
+    },
+    { 
+        "keys": ["ctrl+alt+b"], "command": "prev"
     }
 ]
