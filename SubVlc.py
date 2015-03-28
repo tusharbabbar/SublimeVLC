@@ -63,6 +63,11 @@ def read_playlist_file(item_number):
             add_song_to_vlc(song.strip())
     sublime.status_message(vlc.status())
 
+def add_song_to_vlc(song):
+    playlist.add(song)
+    vlc.add(song)
+    sublime.status_message(vlc.status())
+
 def add_song_to_vlc_new(index):
     if index == -1:
         return
