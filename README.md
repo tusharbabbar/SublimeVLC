@@ -4,7 +4,12 @@ Control your playlists from your favourite Editor. Sublime plugin to Control VLC
 
 ## Prerequisites
 * VLC player must be installed.
+* For OSX create an alias `alias vlc='/Applications/VLC.app/Contents/MacOS/VLC -I rc'`
 * Before one can use SublimeVLC they must enable VLC on telnet with : `vlc --intf telnet --telnet-password admin&`
+
+## Installation
+* For OSX: `cd ~/Library/Application\ Support/Sublime\ /Text\ 2/Packages && git clone git@github.com:tusharbabbar/SublimeVLC.git`
+> This is not a registered plugin yet.
 
 ## Usage
 ### Enable Plugin/Connect to VLC
