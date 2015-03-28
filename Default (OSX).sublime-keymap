@@ -15,6 +15,9 @@
         "keys": ["ctrl+alt+a"], "command": "add_song_to_playlist"
     },
     { 
+        "keys": ["ctrl+alt+e"], "command": "enqueue_song_to_playlist"
+    },
+    { 
         "keys": ["ctrl+alt+p"], "command": "play"
     },
     { 

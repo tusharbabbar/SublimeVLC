@@ -14,11 +14,38 @@ def check_playlist_dir():
 check_playlist_dir()
 
 # global variables
+global vlc
 vlc = VLCClient("::1")
-vlc.connect()
 
+global playlist
+global cached_music_files
 playlist = set()
 playlist_playing = ''
+cached_music_files = []
+
+def cache_music_files():
+    global cached_music_files
+    files = os.popen("find ~ -iname '*.mp*'").readlines()
+    cached_music_files = map(lambda x:x.strip(), files)
+    print cached_music_files
+
+def connect():
+    try:
+        global vlc
+        vlc = VLCClient('::1')
+        vlc.connect()
+        cache_music_files()
+        sublime.status_message("VLC Connected")
+    except Exception as e:
+        print e
+        vlc = VLCClient('::1')
+        sublime.status_message("In terminal : vlc --intf telnet --telnet-password admin&")
+
+def clear_playlist():
+    global playlist
+    playlist = set()
+    print playlist
+    vlc.clear()
 
 def read_playlist_file(item_number):
     if item_number == -1:
@@ -34,21 +61,18 @@ def read_playlist_file(item_number):
         for song in playlist:
             add_song_to_vlc(song.strip())
 
+def add_song_to_vlc_new(index):
+    playlist.add(cached_music_files[index])
+    vlc.add(cached_music_files[index])
 
-def add_song_to_vlc(song):
-    if os.path.exists(song) and filter(lambda x:x in song, ['mp4', 'mp3']):
-        print 'add_song_to_vlc'
-        playlist.add(song.strip())
-        vlc.add(song.strip())
+def enqueue_song_to_vlc_new(index):
+    playlist.add(cached_music_files[index])
+    vlc.enqueue(cached_music_files[index])
 
 def goto_item(number):
     if number == -1:
         return
     vlc.add(list(playlist)[number])
-
-def clear_playlist():
-    playlist = set()
-    vlc.clear()
 
 def set_status(message):
     sublime.status_message(message)
@@ -83,7 +107,13 @@ class ShowCurrentPlaylistCommand(sublime_plugin.WindowCommand):
 
 class AddSongToPlaylistCommand(sublime_plugin.WindowCommand):
     def run(self):
-        self.window.show_input_panel("Enter path to Song", "", add_song_to_vlc, None, None)
+        global cached_music_files
+        self.window.show_quick_panel(cached_music_files, add_song_to_vlc_new)
+
+class EnqueueSongToPlaylistCommand(sublime_plugin.WindowCommand):
+    def run(self):
+        global cached_music_files
+        self.window.show_quick_panel(cached_music_files, enqueue_song_to_vlc_new)
 
 class PlayCommand(sublime_plugin.WindowCommand):
     def run(self):
