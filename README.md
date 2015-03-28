@@ -9,6 +9,7 @@ Control your playlists from your favourite Editor. Sublime plugin to Control VLC
 
 ## Installation
 * For OSX: `cd ~/Library/Application\ Support/Sublime\ /Text\ 2/Packages && git clone git@github.com:tusharbabbar/SublimeVLC.git`
+
 > This is not a registered plugin yet.
 
 ## Usage
