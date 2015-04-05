@@ -1,6 +1,7 @@
 import sublime, sublime_plugin
 import os, sys
 from new_vlc import VLCClient
+from gaana import GaanaDownloader
 
 HOME_DIR = os.popen("echo $HOME").read().strip()
 PLAYLIST_DIR = HOME_DIR + "/.subvlc"
@@ -16,6 +17,7 @@ check_playlist_dir()
 # global variables
 global vlc
 vlc = VLCClient("::1")
+gaana = GaanaDownloader()
 
 global playlist
 global cached_music_files
@@ -89,6 +91,47 @@ def goto_item(number):
 
 def set_status(message):
     sublime.status_message(message)
+
+class SearchSongCommand(sublime_plugin.WindowCommand):
+    tracks = []
+    def run(self):
+        print 'Search Song Command'
+        self.window.show_input_panel("Enter Search Term:" , "", self.search_on_gaana, None, None)
+
+    def search_on_gaana(self, search_term):
+        self.tracks = gaana.search_songs_api(search_term)
+        if self.tracks:
+            self.window.show_quick_panel(map(lambda x:x[0],self.tracks), self.add_track_to_playlist)
+        else:
+            sublime.status_message("Sorry no songs found!!! Lets try another one :)")
+
+    def add_track_to_playlist(self, index):
+        url = gaana.get_song_url(self.tracks[index][1], self.tracks[index][2])
+        add_song_to_vlc(url)
+
+class SearchAlbumCommand(sublime_plugin.WindowCommand):
+    albums = []
+    tracks = []
+    def run(self):
+        print 'Search Album Command'
+        self.window.show_input_panel("Enter Search Term:" , "", self.search_album, None, None)
+
+    def search_album(self, search_term):
+        self.albums = gaana.search_albums_api(search_term)
+        if self.albums:
+            self.window.show_quick_panel(map(lambda x:x[1],self.albums), self.get_tracks_from_album)
+        else:
+            sublime.status_message("Sorry no albums found!!! Lets try another one :)")
+
+    def get_tracks_from_album(self, index):
+        self.tracks = gaana.get_songs_list_from_album(self.albums[index][0])
+        if self.tracks:
+            self.window.show_quick_panel(map(lambda x:x[0],self.tracks), self.add_track_to_playlist)
+
+
+    def add_track_to_playlist(self, index):
+        url = gaana.get_song_url(self.tracks[index][1], self.tracks[index][2])
+        add_song_to_vlc(url)
 
 class ShowPlaylistsCommand(sublime_plugin.WindowCommand):
     def run(self):
@@ -178,3 +221,4 @@ class ClearPlaylistCommand(sublime_plugin.WindowCommand):
 class ConnectVlcCommand(sublime_plugin.WindowCommand):
     def run(self):
         connect()
+

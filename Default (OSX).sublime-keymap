@@ -45,6 +45,12 @@
         "keys": ["ctrl+alt+b"], "command": "prev"
     },
     { 
+        "keys": ["ctrl+alt+g"], "command": "search_song"
+    },
+    { 
+        "keys": ["ctrl+alt+y"], "command": "search_album"
+    },
+    { 
         "keys": ["ctrl+alt+o"], "command": "connect_vlc"
     }
 ]
