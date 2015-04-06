@@ -1,7 +1,7 @@
 # SublimeVLC
 Control your playlists from your favourite Editor. Sublime plugin to Control VLC. 
 Also streams songs from Gaana.com. Search songs and albums while using your favorite editor.
-> Tested for OSX only.
+> Tested for Sublime Text 2 and OSX only.
 
 ## Prerequisites
 * VLC player must be installed.
